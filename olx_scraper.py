@@ -3,6 +3,7 @@ from bs4 import BeautifulSoup
 import requests
 import re
 
+
 class OlxScraper:
     def __init__(self) -> None:
 

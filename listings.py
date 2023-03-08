@@ -4,6 +4,7 @@ import locale
 import os
 import csv
 
+
 class Listings:
     def __init__(self) -> None:
         self.val_offers = []

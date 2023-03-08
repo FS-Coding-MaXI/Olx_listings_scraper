@@ -1,6 +1,7 @@
 from olx_scraper import OlxScraper
 from listings import Listings
 
+
 def main():
 
     scraper = OlxScraper()
