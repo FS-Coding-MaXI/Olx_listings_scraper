@@ -14,6 +14,7 @@ LOG_NAME = (
     + ".csv"
 )
 
+
 class Listing:
     def __init__(self, listing) -> None:
         self.listing_code = listing
