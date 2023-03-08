@@ -31,7 +31,7 @@ class Listing:
         )
         self.date = (
             self.listing_code.find("p", {"data-testid": "location-date"})
-            .text.split("-")[1]
+            .text.split("-")[-1]
             .strip()
         )
         self.location = (
@@ -39,3 +39,12 @@ class Listing:
             .text.split("-")[0]
             .strip()
         )
+        try:  # if this span object exist, then it is negotiable
+            len(
+                self.listing_code.find("p", {"data-testid": "ad-price"})
+                .find("span")
+                .text
+            )
+            self.negotiable = "Yes"
+        except AttributeError:
+            self.negotiable = "No information"
