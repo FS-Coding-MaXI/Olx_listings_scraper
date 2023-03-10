@@ -1,4 +1,3 @@
-TOKEN = "MTA4Mjk2NTAyMjA1MDg4MTU2Nw.GFQCqT.VGvBqHzfzq9_Ou1kyw4-DVDtontBBNJ_MwMwXM"
 import discord
 from discord.ext import commands
 from discord.ext import tasks
@@ -57,6 +56,8 @@ class MyBot(commands.Bot):
 
 
 def main():
+    with open("TOKEN.txt", "r") as f:
+        TOKEN = f.read()
     intents = discord.Intents.all()
     bot = MyBot(command_prefix="-", intents=intents, self_bot=False)
     bot.run(TOKEN)
