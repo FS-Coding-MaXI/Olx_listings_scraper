@@ -6,7 +6,6 @@ import re
 
 class OlxScraper:
     def __init__(self) -> None:
-
         self.base_url = SETTINGS["base_url"]
         self.product = f"oferty/q-{'-'.join(SETTINGS['product_name'].split())}/"
         self.filters = {

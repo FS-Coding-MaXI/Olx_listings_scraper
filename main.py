@@ -3,7 +3,6 @@ from listings import Listings
 
 
 def main():
-
     scraper = OlxScraper()
     listings = Listings()
     scraper.start_session()
