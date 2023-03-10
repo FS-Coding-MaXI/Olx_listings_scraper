@@ -1,18 +1,13 @@
 import discord
 from discord.ext import commands
-from discord.ext import tasks
-from olx_scraper import OlxScraper
-from listings import Listings
-
-scraper = OlxScraper()
-listings = Listings()
-scraper.start_session()
 
 
 class MyBot(commands.Bot):
-    def __init__(self, command_prefix: str, intents: discord.Intents, self_bot: bool):
+    def __init__(self, command_prefix: str, self_bot: bool):
         super().__init__(
-            command_prefix=command_prefix, intents=intents, self_bot=self_bot
+            command_prefix=command_prefix,
+            intents=discord.Intents.all(),
+            self_bot=self_bot,
         )
         self.add_commands()
         self.LOG_CHANNEL = 1083820031630114927
@@ -22,12 +17,12 @@ class MyBot(commands.Bot):
         channel = self.get_channel(self.LOG_CHANNEL)
         await channel.send("I have started! ")
         # self.scrap.start()
-        await self.scrap()
+        # await self.scrap()
 
     def add_commands(self):
-        @self.command(name="test_list", pass_context=True)
-        async def test_list(ctx) -> None:
-            self.send_listing(listings.val_offers[0])
+        # @self.command(name="test_list", pass_context=True)
+        # async def test_list(ctx) -> None:
+        #     self.send_listing(listings.val_offers[0])
 
         @self.command(name="status", pass_context=True)
         async def status(ctx) -> None:
@@ -61,29 +56,9 @@ class MyBot(commands.Bot):
 
     # Background loop which every minute checks if there is new listng if so, post it
     # @tasks.loop(minutes=1)
-    async def scrap(self) -> None:
-        # Scraping process
-        scraper.get_all_pages()
-        for p in range(scraper.page_number):
-            listings.add_unv_listings(scraper.get_listings_from_page(p))
-            listings.validate_listings()
+    async def send_new_listing(self, ls) -> None:
 
-        # After validating for each listing which was not posted, call send_listing, and change bool parameter.
-        for listing in listings.val_offers:
-            if not listing.sent2discord:
-                await self.log_listing(listing)
-                await self.send_listing(listing)
-                listing.sent2discord = True
-                break
-
-
-def main():
-    with open("TOKEN.txt", "r") as f:
-        TOKEN = f.read()
-    intents = discord.Intents.all()
-    bot = MyBot(command_prefix="-", intents=intents, self_bot=False)
-    bot.run(TOKEN)
-
-
-if __name__ == "__main__":
-    main()
+        # After validating listing which was not posted, call send_listing, and change bool parameter.
+        await self.log_listing(ls)
+        await self.send_listing(ls)
+        ls.sent2discord = True
