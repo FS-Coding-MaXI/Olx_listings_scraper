@@ -1,11 +1,14 @@
 {
     "limits": {
-        "lower_limit": 200,
-        "upper_limit": 450
+        "lower_limit": 180,
+        "upper_limit": 600
     },
     "base_url": "https://www.olx.pl/",
     "product_name": "pencil",
-    "desired_keyword": [
+    "desired_keywords": [  
+        "apple pencil"
+    ],
+    "possible_keywords": [
         "apple pencil",
         "pencil",
         "1 gen",
@@ -15,6 +18,7 @@
         "rysik ipad",
         "rysik"
     ],
+    "_comment": "desired_keywords have higher importance than possible_keywords and the results may be showed higher than the possible_keywords",
     "undesired_keywords": [
         "etui",
         "logitech",
@@ -22,6 +26,9 @@
         "stylus",
         "ładowarka",
         "obudowa",
-        "shield"
+        "shield",
+        "equipe",
+        "premier",
+        "prismacollor"
     ]
 }

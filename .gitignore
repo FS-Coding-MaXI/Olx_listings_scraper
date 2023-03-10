@@ -1,3 +1,4 @@
 # ignore folders
 
 *.csv
+__pycache__
