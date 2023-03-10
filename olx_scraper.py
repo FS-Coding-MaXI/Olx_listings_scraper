@@ -1,5 +1,6 @@
 from settings import SETTINGS
 from bs4 import BeautifulSoup
+from bot import MyBot
 import requests
 import re
 
@@ -14,14 +15,24 @@ class OlxScraper:
         }
         self.limits = SETTINGS["limits"]
 
-    def start_session(self):  # starts new requests session
+    def start_requests_session(self):  # starts new requests session
         self.session = requests.Session()
+
+    def start_discord_bot_session(self):  # starts new discord bot session:
+        with open("TOKEN.txt", "r") as f:
+            TOKEN = f.read()
+        self.discord_bot = MyBot(command_prefix="-", self_bot=False)
+        self.discord_bot.run(TOKEN)
 
     def url(self):  # returns url w/o filter
         return self.base_url + self.product
 
     def get_all_pages(self):  # sets ammout of pages considering filters
-        response = self.session.get(self.url(), params=self.filters)
+        try:
+            response = self.session.get(self.url(), params=self.filters, timeout=10)
+        except TimeoutError:
+            print("Request timeout, check your connection")
+
         soup = BeautifulSoup(response.content, "lxml")
         self.page_number = int(
             soup.find_all("li", {"data-testid": "pagination-list-item"})[-1].text
