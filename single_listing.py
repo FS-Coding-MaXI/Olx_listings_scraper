@@ -23,7 +23,6 @@ class Listing:
             ).text
         except AttributeError:  # if there isn't such as span
             self.condition = "Unclarified"
-        self.sent2discord = False
         self.link = SETTINGS["base_url"] + self.listing_code.find("a").attrs["href"]
         self.price = (
             self.listing_code.find("p", {"data-testid": "ad-price"}).text.split("zł")[0]
@@ -48,3 +47,15 @@ class Listing:
             self.negotiable = "Yes"
         except AttributeError:
             self.negotiable = "No information"
+        del self.listing_code
+
+    # def __dict__(self):
+    #     return {
+    #         "name": self.listing_name,
+    #         "condition": self.condition,
+    #         "price": self.price,
+    #         "date": self.date,
+    #         "location": self.location,
+    #         "link": self.link,
+    #         "negotiable": self.negotiable
+    #     }

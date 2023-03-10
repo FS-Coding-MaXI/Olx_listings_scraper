@@ -1,6 +1,5 @@
 from settings import SETTINGS
 from bs4 import BeautifulSoup
-from bot import MyBot
 import requests
 import re
 
@@ -17,12 +16,6 @@ class OlxScraper:
 
     def start_requests_session(self):  # starts new requests session
         self.session = requests.Session()
-
-    def start_discord_bot_session(self):  # starts new discord bot session:
-        with open("TOKEN.txt", "r") as f:
-            TOKEN = f.read()
-        self.discord_bot = MyBot(command_prefix="-", self_bot=False)
-        self.discord_bot.run(TOKEN)
 
     def url(self):  # returns url w/o filter
         return self.base_url + self.product
