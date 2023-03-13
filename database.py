@@ -20,3 +20,6 @@ class Database(pymongo.MongoClient):
 
     async def add_listing(self, listing: Listing):
         self.listing_collection.insert_one(listing.__dict__)
+
+    def test_add(self, listing: Listing):
+        self.listing_collection.insert_one(listing)
