@@ -75,20 +75,27 @@ class MyBot(commands.Bot):
         await channel.send(embed=embed)
         await channel.send(file=file)
 
+    async def send_error(self, e) -> None:
+        channel = self.get_channel(self.LOG_CHANNEL)
+        channel.send(f"Error occured:\n {e}")
+
     # Background loop which every minute checks if there is new listng if so, post it
     @tasks.loop(minutes=0.5)
     async def scrap(self) -> None:
-        self.scraper.get_all_pages()
-        for p in range(self.scraper.page_number):
-            self.listings.add_unv_listings(self.scraper.get_listings_from_page(p))
-            self.listings.validate_listings(self.first_run)
+        try:
+            self.scraper.get_all_pages()
+            for p in range(self.scraper.page_number):
+                self.listings.add_unv_listings(self.scraper.get_listings_from_page(p))
+                self.listings.validate_listings(self.first_run)
 
-        if self.first_run:
-            self.listings.sort_listings_by_price()
-            self.listings.sort_listings_by_key_priority()
-            await self.send_csv()
-            self.first_run = False
+            if self.first_run:
+                self.listings.sort_listings_by_price()
+                self.listings.sort_listings_by_key_priority()
+                await self.send_csv()
+                self.first_run = False
 
-        if self.listings.if_new_listing() and not self.first_run:
-            await self.send_new_listing(self.listings.find_new_listing())
-            self.listings.listings_to_csv()
+            if self.listings.if_new_listing() and not self.first_run:
+                await self.send_new_listing(self.listings.find_new_listing())
+                self.listings.listings_to_csv()
+        except Exception as e:
+            await self.send_error(e)
