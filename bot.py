@@ -76,7 +76,7 @@ class MyBot(commands.Bot):
         await channel.send(file=file)
 
     # Background loop which every minute checks if there is new listng if so, post it
-    @tasks.loop(minutes=0.01)
+    @tasks.loop(minutes=0.5)
     async def scrap(self) -> None:
         self.scraper.get_all_pages()
         for p in range(self.scraper.page_number):

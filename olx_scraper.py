@@ -24,24 +24,27 @@ class OlxScraper:
 
     # sets ammout of pages considering filters
     def get_all_pages(self):
-        try:
-            response = self.session.get(self.url(), params=self.filters)
-        except TimeoutError:
-            print("Request timeout, check your connection")
+        response = self.session.get(self.url(), params=self.filters)
 
         soup = BeautifulSoup(response.content, "lxml")
-        self.page_number = int(
-            soup.find_all("li", {"data-testid": "pagination-list-item"})[-1].text
-        )
+        try:
+            self.page_number = int(
+                soup.find_all("li", {"data-testid": "pagination-list-item"})[-1].text
+            )
+        except (AttributeError, IndexError):
+            self.get_all_pages()
 
     # fetches all available listings from a given page
     def get_listings_from_page(self, page):
         self.filters["page"] = page + 1
         response = self.session.get(self.url(), params=self.filters)
         soup = BeautifulSoup(response.content, "lxml")
-        return soup.find(
-            "div", class_=re.compile(r"listing-grid-container.*")
-        ).find_all("div", {"data-cy": "l-card"})
+        try:
+            return soup.find(
+                "div", class_=re.compile(r"listing-grid-container.*")
+            ).find_all("div", {"data-cy": "l-card"})
+        except AttributeError:
+            self.get_listings_from_page(page)
 
     def get_single_listing_photo(self, ls_url):
         response = self.session.get(url=ls_url)

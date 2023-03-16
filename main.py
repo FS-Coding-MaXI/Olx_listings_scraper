@@ -27,6 +27,8 @@ def discord_interactive_bot():
 
 def choose_mode():
 
+    # discord_interactive_bot()
+
     print("1. Scrap listings for a single time and open the results.")
     print("2. Run a discord interactive scraper.")
     try:
