@@ -27,18 +27,18 @@ def discord_interactive_bot():
 
 def choose_mode():
 
-    # discord_interactive_bot()
+    discord_interactive_bot()
 
-    print("1. Scrap listings for a single time and open the results.")
-    print("2. Run a discord interactive scraper.")
-    try:
-        choose = int(input("Choose one of the possible modes: ")[0])
-        if choose == 1:
-            single_scrap()
-        elif choose == 2:
-            discord_interactive_bot()
-    except:
-        choose_mode()
+    # print("1. Scrap listings for a single time and open the results.")
+    # print("2. Run a discord interactive scraper.")
+    # try:
+    #     choose = int(input("Choose one of the possible modes: ")[0])
+    #     if choose == 1:
+    #         single_scrap()
+    #     elif choose == 2:
+    #         discord_interactive_bot()
+    # except:
+    #     choose_mode()
 
 
 if __name__ == "__main__":
