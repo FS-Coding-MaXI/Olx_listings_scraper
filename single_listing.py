@@ -59,9 +59,9 @@ class Listing:
             [
                 z
                 for z in self.listing_code.find("p", {"data-testid": "ad-price"}).text
-                if z.isnumeric()
+                if z.isnumeric() or z == ","
             ]
-        )
+        ).replace(",", ".")
         self.date = self._format_date()
         self.location = (
             self.listing_code.find("p", {"data-testid": "location-date"})
