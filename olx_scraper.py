@@ -26,7 +26,7 @@ class OlxScraper:
     def get_all_pages(self):
         response = self.session.get(self.url(), params=self.filters)
 
-        soup = BeautifulSoup(response.content, "lxml")
+        soup = BeautifulSoup(response.content, "html.parser")
         try:
             self.page_number = int(
                 soup.find_all("li", {"data-testid": "pagination-list-item"})[-1].text
@@ -38,7 +38,7 @@ class OlxScraper:
     def get_listings_from_page(self, page):
         self.filters["page"] = page + 1
         response = self.session.get(self.url(), params=self.filters)
-        soup = BeautifulSoup(response.content, "lxml")
+        soup = BeautifulSoup(response.content, "html.parser")
         try:
             return soup.find(
                 "div", class_=re.compile(r"listing-grid-container.*")
@@ -48,7 +48,7 @@ class OlxScraper:
 
     def get_single_listing_photo(self, ls_url):
         response = self.session.get(url=ls_url)
-        soup = BeautifulSoup(response.content, "lxml")
+        soup = BeautifulSoup(response.content, "html.parser")
         try:
             image_link = (
                 soup.find("div", {"class": "swiper-zoom-container"})
