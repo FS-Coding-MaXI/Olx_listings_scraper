@@ -1,1 +1,1 @@
-web: python3 main.py $TOKEN
+web: python3 main.py $PORT $TOKEN
