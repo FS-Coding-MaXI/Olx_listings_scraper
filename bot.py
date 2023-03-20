@@ -66,7 +66,6 @@ class MyBot(commands.Bot):
         embed.set_footer(
             text="by OLX Scraper", icon_url="https://i.imgur.com/hUhyNEL.jpeg"
         )
-        # message = f"UWAGA - {listing.listing_name}\nCena: **{listing.price}**\nOgloszenie - {listing.link}"  # Format message
         await channel.send(embed=embed)  # Send formatted message
 
     async def send_csv(self) -> None:
@@ -81,7 +80,7 @@ class MyBot(commands.Bot):
 
     async def send_error(self, e) -> None:
         channel = self.get_channel(self.LOG_CHANNEL)
-        channel.send(f"Error occured:\n {e}")
+        await channel.send(f"Error occured:\n {e}")
 
     # Background loop which every minute checks if there is new listng if so, post it
     @tasks.loop(minutes=0.5)
