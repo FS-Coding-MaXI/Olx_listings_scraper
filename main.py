@@ -1,6 +1,7 @@
 from bot import MyBot
 from listings import Listings
 from olx_scraper import OlxScraper
+import os
 
 
 def single_scrap():
@@ -19,8 +20,10 @@ def single_scrap():
 
 
 def discord_interactive_bot():
-    with open("TOKEN.txt", "r") as f:
-        TOKEN = f.read()
+    TOKEN = os.environ.get("TOKEN")
+    if not TOKEN:
+        print("No token found! Exiting")
+        return
     discord_bot = MyBot(command_prefix="-", self_bot=False)
     discord_bot.run(TOKEN)
 
