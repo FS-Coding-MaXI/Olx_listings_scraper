@@ -1,13 +1,15 @@
 import json, time
 from os import path
 
-SETTINGS = json.load(open("settings.json"))
-
 # loads settings for the scraper such as
 # keywords
 # filters (price limits)
 # products we look for
 # base olx url
+
+OLX_SETTINGS = json.load(open("olx_settings.json"))
+
+# generates name for the log of the one session of running
 
 LOG_PATH = path.join(
     "logs",
@@ -16,4 +18,4 @@ LOG_PATH = path.join(
     + ".csv",
 )
 
-# generates name for the log of the one session of running
+# keeps up gcp settings, NEEDED ONLY IF YOU WANT TO DEPLOY IT ON SERVER
