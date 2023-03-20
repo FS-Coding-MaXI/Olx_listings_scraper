@@ -48,6 +48,10 @@ class MyBot(commands.Bot):
         async def clean(ctx, amount):
             await ctx.channel.purge(limit=int(amount))
 
+        @self.command(name="first", pass_context=True)
+        async def first(ctx):
+            await self.send_csv()
+
     # Takes listing and sends to specific channel
     async def send_new_listing(self, listing) -> None:
         channel = self.get_channel(
@@ -91,7 +95,6 @@ class MyBot(commands.Bot):
             if self.first_run:
                 self.listings.sort_listings_by_price()
                 self.listings.sort_listings_by_key_priority()
-                await self.send_csv()
                 self.first_run = False
 
             if self.listings.if_new_listing() and not self.first_run:
