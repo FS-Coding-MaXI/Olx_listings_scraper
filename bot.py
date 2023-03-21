@@ -4,6 +4,12 @@ from discord.ext import tasks
 from olx_scraper import OlxScraper
 from listings import Listings
 from settings import LOG_PATH
+import logging
+
+# Enable logging
+logging.basicConfig(
+    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=logging.INFO
+)
 
 
 class MyBot(commands.Bot):
@@ -18,6 +24,7 @@ class MyBot(commands.Bot):
         self.LISTING_CHANNEL = 1083725146080149524
         self.scraper = OlxScraper()
         self.listings = Listings()
+        self.logger = logging.getLogger(__name__)
 
     async def on_ready(self) -> None:
         channel = self.get_channel(self.LOG_CHANNEL)
@@ -29,7 +36,6 @@ class MyBot(commands.Bot):
     def add_commands(self):
         @self.command(name="status", pass_context=True)
         async def status(ctx) -> None:
-            print(ctx)
             await ctx.channel.send("Kurwa dzialam " + ctx.author.name)
 
         @self.command(name="ping")
@@ -100,4 +106,8 @@ class MyBot(commands.Bot):
                 await self.send_new_listing(self.listings.find_new_listing())
                 self.listings.listings_to_csv()
         except Exception as e:
-            await self.send_error(e)
+            await self.error(e)
+
+    async def error(self, exception):
+        """Log Errors caused by Updates."""
+        self.logger.warning(f"Caused error {exception}")

@@ -44,14 +44,6 @@ class Listings:
                     self.today_listings_links.append(offer.link)
 
     def if_new_listing(self):
-        print(
-            len([z for z in self.val_offers if ":" in z.date]),
-            len(self.today_listings_links),
-        )
-        print(
-            [z.link for z in self.val_offers if ":" in z.date],
-            self.today_listings_links,
-        )
         return len([z for z in self.val_offers if ":" in z.date]) > len(
             self.today_listings_links
         )
