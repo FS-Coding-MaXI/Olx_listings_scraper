@@ -20,8 +20,7 @@ def single_scrap():
 
 
 def discord_interactive_bot():
-    # TOKEN = os.environ.get("TOKEN")
-    TOKEN = "MTA4Mjk2NTAyMjA1MDg4MTU2Nw.GFQCqT.VGvBqHzfzq9_Ou1kyw4-DVDtontBBNJ_MwMwXM"
+    TOKEN = os.environ.get("TOKEN")
     if not TOKEN:
         print("No token found! Exiting")
         return
