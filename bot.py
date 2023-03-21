@@ -110,4 +110,4 @@ class MyBot(commands.Bot):
 
     async def error(self, exception):
         """Log Errors caused by Updates."""
-        self.logger.warning(f"Caused error {exception}")
+        self.logger.error(f"Caused error {exception}", exc_info=True)
