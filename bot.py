@@ -4,6 +4,7 @@ from discord.ext import tasks
 from olx_scraper import OlxScraper
 from listings import Listings
 from settings import LOG_PATH
+import os
 import logging
 
 # Enable logging
@@ -81,6 +82,8 @@ class MyBot(commands.Bot):
         )  # Specify channel to which we want to send message
         embed = discord.Embed(title=f"First scrap result", color=0x50D68D)
         file = discord.File(LOG_PATH)
+        if not os.path.isdir("logs"):
+            os.mkdir("logs")
         await channel.send(embed=embed)
         await channel.send(file=file)
 
