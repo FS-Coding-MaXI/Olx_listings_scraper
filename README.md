@@ -17,7 +17,7 @@ This is a Python-based project that scrapes the latest listings on OLX, an onlin
 1. Clone the repository:
 
    ```
-   git clone https://github.com/yourusername/olx-discord-notifier.git
+   git clone https://github.com/FS-Coding-MaXI/Olx_listings_scraper.git
    ```
 
 2. Install the required packages:
