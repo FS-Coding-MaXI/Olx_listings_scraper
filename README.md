@@ -1,5 +1,3 @@
-Certainly! Here's an example README in Markdown for a project that scrapes information about new listings on OLX and sends the result to a Discord channel:
-
 # OLX Scraper and Discord Notifier
 
 This is a Python-based project that scrapes the latest listings on OLX, an online marketplace, and sends notifications to a Discord channel.
