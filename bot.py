@@ -21,8 +21,8 @@ class MyBot(commands.Bot):
             self_bot=self_bot,
         )
         self.add_commands()
-        self.LOG_CHANNEL = 1083820031630114927
-        self.LISTING_CHANNEL = 1083725146080149524
+        self.LOG_CHANNEL = 1173703610362765332
+        self.LISTING_CHANNEL = 1173703610362765332
         self.scraper = OlxScraper()
         self.listings = Listings()
         self.logger = logging.getLogger(__name__)
