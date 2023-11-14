@@ -28,8 +28,6 @@ class MyBot(commands.Bot):
         self.logger = logging.getLogger(__name__)
 
     async def on_ready(self) -> None:
-        channel = self.get_channel(self.LOG_CHANNEL)
-        await channel.send("I have started! ")
         self.scraper.start_requests_session()
         self.first_run = True
         self.scrap.start()
